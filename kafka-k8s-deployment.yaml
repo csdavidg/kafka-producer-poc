@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kafka-pvc
+  labels:
+    type: local
+    app: kafka-app
+spec:
+  storageClassName: kafka-sc
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/Users/cristiansanchez/kafka/data"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kafka-pvc
+  labels:
+    app: kafka-app
+spec:
+  storageClassName: kafka-sc
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-svc
+  labels:
+    app: kafka-app
+spec:
+  clusterIP: None
+  ports:
+    - name: "9092"
+      port: 9092
+      protocol: TCP
+      targetPort: 9092
+  selector:
+    app: kafka-app
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-np
+  labels:
+    app: kafka-app
+spec:
+  type: NodePort
+  ports:
+    - port: 9092
+      nodePort: 30092
+  selector:
+    app: kafka-app
+
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kafka
+  labels:
+    app: kafka-app
+spec:
+  serviceName: kafka-svc
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kafka-app
+  template:
+    metadata:
+      labels:
+        app: kafka-app
+    spec:
+      containers:
+        - name: kafka-container
+          image: doughgle/kafka-kraft
+          ports:
+            - containerPort: 9092
+            - containerPort: 9093
+          env:
+            - name: REPLICAS
+              value: "3"
+            - name: SERVICE
+              value: kafka-svc
+            - name: NAMESPACE
+              value: default
+            - name: SHARE_DIR
+              value: /mnt/kafka
+            - name: CLUSTER_ID
+              value: 5MB5lq-XT-6JzQqJeIuhWQ
+            - name: DEFAULT_REPLICATION_FACTOR
+              value: "3"
+            - name: DEFAULT_MIN_INSYNC_REPLICAS
+              value: "2"
+          volumeMounts:
+            - name: kafka-data
+              mountPath: /mnt/kafka
+      volumes:
+        - name: kafka-data
+          persistentVolumeClaim:
+            claimName: kafka-pvc
