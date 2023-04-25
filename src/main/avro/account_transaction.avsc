@@ -1,0 +1,30 @@
+{
+  "name": "AccountTransaction",
+  "namespace": "com.demo.kafkaconsumerpoc.avro",
+  "type": "record",
+  "fields": [
+    {
+      "name": "accountNumber",
+      "type": "string"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "typeTransaction",
+      "type": {
+        "name": "TransactionType",
+        "type": "enum",
+        "symbols": [
+          "DEBIT",
+          "CREDIT"
+        ]
+      }
+    },
+    {
+      "name": "amount",
+      "type": "double"
+    }
+  ]
+}

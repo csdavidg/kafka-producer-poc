@@ -1,0 +1,455 @@
+{
+	"info": {
+		"_postman_id": "2ab488c4-469b-4495-98c1-f2dcf420ca50",
+		"name": "KAFKA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5689000"
+	},
+	"item": [
+		{
+			"name": "Schema Registry",
+			"item": [
+				{
+					"name": "Subject_Versions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:30081/subjects/privacy.prd2293.privacy-request.v0.dev-value/versions",
+							"host": [
+								"localhost"
+							],
+							"port": "30081",
+							"path": [
+								"subjects",
+								"privacy.prd2293.privacy-request.v0.dev-value",
+								"versions"
+							]
+						},
+						"description": "Get all the versions from a schema registered under this subject"
+					},
+					"response": []
+				},
+				{
+					"name": "Subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://172.17.0.2:30081/subjects",
+							"protocol": "http",
+							"host": [
+								"172",
+								"17",
+								"0",
+								"2"
+							],
+							"port": "30081",
+							"path": [
+								"subjects"
+							]
+						},
+						"description": "Get all the versions from a schema registered under this subject"
+					},
+					"response": []
+				},
+				{
+					"name": "Compatibility",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \"schema\": \"{    \\\"type\\\": \\\"record\\\",    \\\"namespace\\\": \\\"com.globant.tw.poc.ccpa.avro\\\",    \\\"name\\\": \\\"PrivacyRequest\\\",    \\\"version\\\": \\\"1\\\",    \\\"fields\\\": [        {            \\\"name\\\": \\\"brand_id\\\",            \\\"type\\\": \\\"string\\\",            \\\"doc\\\": \\\"brand id\\\"        },        {            \\\"name\\\": \\\"fan_id\\\",            \\\"type\\\": \\\"string\\\",            \\\"doc\\\": \\\"fan id\\\"        },        {            \\\"name\\\": \\\"RequestTypeEnum\\\",            \\\"type\\\": {                \\\"name\\\": \\\"RequestTypeEnum\\\",                \\\"type\\\": \\\"enum\\\",                \\\"symbols\\\": [                    \\\"GET_INFO\\\",                    \\\"ERASE_PREFLIGHT_CHECK\\\",                    \\\"ERASE\\\",                    \\\"DO_NOT_SELL\\\",                    \\\"UN_DO_NOT_SELL\\\",                    \\\"UNSUBSCRIBE\\\",                    \\\"TRACE\\\"                ]            }        }    ]}\"}"
+						},
+						"url": {
+							"raw": "localhost:8081/compatibility/subjects/privacy.prd2293.privacy-request-status-update.v0.des-value/versions/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"compatibility",
+								"subjects",
+								"privacy.prd2293.privacy-request-status-update.v0.des-value",
+								"versions",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/subjects/privacy.prd2293.privacy-request.v0.dev-value",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"subjects",
+								"privacy.prd2293.privacy-request.v0.dev-value"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SchemaRegistryTWB",
+			"item": [
+				{
+					"name": "Subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://sr.cf.prd349.dev3.datasciences.tmcs:8081/subjects",
+							"protocol": "http",
+							"host": [
+								"sr",
+								"cf",
+								"prd349",
+								"dev3",
+								"datasciences",
+								"tmcs"
+							],
+							"port": "8081",
+							"path": [
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subjects_Versions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://sr.cf.prd349.dev3.datasciences.tmcs:8081/subjects/privacy.prd2293.privacy-request.v0.qa-value/versions/18",
+							"protocol": "http",
+							"host": [
+								"sr",
+								"cf",
+								"prd349",
+								"dev3",
+								"datasciences",
+								"tmcs"
+							],
+							"port": "8081",
+							"path": [
+								"subjects",
+								"privacy.prd2293.privacy-request.v0.qa-value",
+								"versions",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Compatibility",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \"schema\": \"{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"PrivacyRequest\\\",\\\"namespace\\\":\\\"com.tm.privacy.wirefmt\\\",\\\"doc\\\":\\\"A privacy request (erasure, get_info, opt_out and etc) to be broadcasted to TM application and processed by them\\\",\\\"fields\\\":[{\\\"name\\\":\\\"fanIdentity\\\",\\\"type\\\":{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"FanIdentity\\\",\\\"doc\\\":\\\"A generic type to represent fan identity in variety of requests and responses\\\",\\\"fields\\\":[{\\\"name\\\":\\\"id\\\",\\\"type\\\":{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}},{\\\"name\\\":\\\"idType\\\",\\\"type\\\":{\\\"type\\\":\\\"enum\\\",\\\"name\\\":\\\"IdType\\\",\\\"namespace\\\":\\\"com.tm.privacy.wirefmt.enums\\\",\\\"doc\\\":\\\"Types of Fan Identities. List will be adjusted as we go with implementation\\\",\\\"symbols\\\":[\\\"MEMBER_ID\\\",\\\"TMR_ACCOUNT_ID\\\",\\\"SFMC_SUBSCRIBER_ID\\\",\\\"ARCHTICS_ACCOUNT_ID\\\",\\\"ENCRYPTED_PROFILE\\\",\\\"TICKETWEB_CONSUMER_ID\\\",\\\"UNIVERSE_USER_ID\\\",\\\"TERADATA_INTERNAL_ID\\\",\\\"TERADATA_ULTIMATE_PARTY_ID\\\",\\\"UNKNOWN\\\"],\\\"default\\\":\\\"UNKNOWN\\\"}},{\\\"name\\\":\\\"property\\\",\\\"type\\\":[\\\"null\\\",{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}],\\\"default\\\":null},{\\\"name\\\":\\\"encryptedProfile\\\",\\\"type\\\":[\\\"null\\\",{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"EncryptedProfile\\\",\\\"doc\\\":\\\"A payload with encrypted Fan PII: email, first name and last name\\\",\\\"fields\\\":[{\\\"name\\\":\\\"email\\\",\\\"type\\\":[\\\"null\\\",{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}],\\\"default\\\":null},{\\\"name\\\":\\\"firstName\\\",\\\"type\\\":[\\\"null\\\",{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}],\\\"default\\\":null},{\\\"name\\\":\\\"lastName\\\",\\\"type\\\":[\\\"null\\\",{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}],\\\"default\\\":null},{\\\"name\\\":\\\"encryptionContext\\\",\\\"type\\\":[\\\"null\\\",{\\\"type\\\":\\\"record\\\",\\\"name\\\":\\\"Vault\\\",\\\"doc\\\":\\\"An encryption context for HashiCorp Vault\\\",\\\"fields\\\":[{\\\"name\\\":\\\"secretEngine\\\",\\\"type\\\":{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}},{\\\"name\\\":\\\"secretPath\\\",\\\"type\\\":{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}}]}],\\\"doc\\\":\\\"Possible values: null (plain text, no encryption) or Vault (uses HashiCorp Vault)\\\",\\\"default\\\":null}]}],\\\"default\\\":null}]}},{\\\"name\\\":\\\"brandId\\\",\\\"type\\\":{\\\"type\\\":\\\"enum\\\",\\\"name\\\":\\\"BrandId\\\",\\\"namespace\\\":\\\"com.tm.privacy.wirefmt.enums\\\",\\\"doc\\\":\\\"Brand IDs - Ticketmaster, Universe, Livenation and etc.\\\",\\\"symbols\\\":[\\\"TICKETMASTER\\\",\\\"TICKETWEB\\\",\\\"TICKETS_NOW\\\",\\\"LIVENATION\\\",\\\"FRONTGATE_TICKETS\\\",\\\"UNIVERSE\\\",\\\"TICKETS_TODAY\\\",\\\"UNKNOWN\\\"],\\\"default\\\":\\\"UNKNOWN\\\"}},{\\\"name\\\":\\\"privacyRequestId\\\",\\\"type\\\":{\\\"type\\\":\\\"string\\\",\\\"avro.java.string\\\":\\\"String\\\"}},{\\\"name\\\":\\\"requestTimestamp\\\",\\\"type\\\":\\\"long\\\",\\\"doc\\\":\\\"Epoch-time in millis UTC, when request was initiated by Fan\\\"},{\\\"name\\\":\\\"requestType\\\",\\\"type\\\":{\\\"type\\\":\\\"enum\\\",\\\"name\\\":\\\"PrivacyRequestType\\\",\\\"namespace\\\":\\\"com.tm.privacy.wirefmt.enums\\\",\\\"doc\\\":\\\"Privacy request types (mixture of GDPR and CCPA)\\\",\\\"symbols\\\":[\\\"ERASE\\\",\\\"ERASE_PREFLIGHT_CHECK\\\",\\\"DO_NOT_SELL\\\",\\\"UN_DO_NOT_SELL\\\",\\\"UNSUBSCRIBE\\\",\\\"GET_INFO\\\",\\\"FULL_RESTRICT\\\",\\\"PARTIAL_RESTRICT\\\",\\\"UNRESTRICT\\\",\\\"TRACE\\\"],\\\"default\\\":\\\"TRACE\\\"}},{\\\"name\\\":\\\"legalContext\\\",\\\"type\\\":{\\\"type\\\":\\\"enum\\\",\\\"name\\\":\\\"LegalContext\\\",\\\"namespace\\\":\\\"com.tm.privacy.wirefmt.enums\\\",\\\"doc\\\":\\\"An indicator whether request contains CCPA or GDPR specifics. Could be used by applications to apply conditional logic based on context value, but should generally be ignored unless needed.\\\",\\\"symbols\\\":[\\\"NONE\\\",\\\"CCPA\\\",\\\"GDPR\\\"],\\\"default\\\":\\\"NONE\\\"},\\\"doc\\\":\\\"Whether this request contains specifics for CCPA, GDPR, something else or none at all\\\"}]}\"}"
+						},
+						"url": {
+							"raw": "http://sr.cf.prd349.dev3.datasciences.tmcs:8081/compatibility/subjects/privacy.prd2293.privacy-request.v0.qa-value/versions/18",
+							"protocol": "http",
+							"host": [
+								"sr",
+								"cf",
+								"prd349",
+								"dev3",
+								"datasciences",
+								"tmcs"
+							],
+							"port": "8081",
+							"path": [
+								"compatibility",
+								"subjects",
+								"privacy.prd2293.privacy-request.v0.qa-value",
+								"versions",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AdminClient",
+			"item": [
+				{
+					"name": "Describe topic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/topics/describe/test",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"topics",
+								"describe",
+								"test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Describe broker configs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/broker/describe/config/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"broker",
+								"describe",
+								"config",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List topics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/topics/list",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"topics",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create topic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"test2\",\n    \"numPartitions\" : 1,\n    \"replicationFactor\" : 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admin/topics/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"topics",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lists consumer groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/consumer/group/list",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"consumer",
+								"group",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Describe consumer group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/consumer/group/describe/firstGroup",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"consumer",
+								"group",
+								"describe",
+								"firstGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Last committed offset",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/consumer/group/offset/firstGroup",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"consumer",
+								"group",
+								"offset",
+								"firstGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Describe Cluster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/cluster/describe",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"cluster",
+								"describe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increase topic partitions",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/topics/test/increase/partitions/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"topics",
+								"test",
+								"increase",
+								"partitions",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete records from topics",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/delete/records/topic/test/consumer/group/firstGroup",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"delete",
+								"records",
+								"topic",
+								"test",
+								"consumer",
+								"group",
+								"firstGroup"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kafka POC produce message",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/producer/Cristian",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"producer",
+						"Cristian"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

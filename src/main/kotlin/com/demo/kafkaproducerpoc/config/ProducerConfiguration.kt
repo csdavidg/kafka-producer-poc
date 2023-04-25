@@ -1,6 +1,6 @@
 package com.demo.kafkaproducerpoc.config
 
-import com.demo.kafkaproducerpoc.controllers.ProducerController
+import io.confluent.kafka.serializers.KafkaAvroSerializer
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.serialization.StringSerializer
 import org.springframework.beans.factory.annotation.Value
@@ -18,12 +18,13 @@ class ProducerConfiguration {
 
     @Bean
     fun producerFactory(): ProducerFactory<String, Any> {
-        val properties = mutableMapOf<String, Any>()
+        val properties = mutableMapOf<String, Any>(
+            ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to kafkaBrokers,
+            ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
+            ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to KafkaAvroSerializer::class.java,
+            "schema.registry.url" to "http://localhost:8081"
+        )
 
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBrokers)
-        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer::class.java)
-        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer::class.java)
-        ProducerConfig.PARTITIONER_CLASS_CONFIG
 
         return DefaultKafkaProducerFactory(properties)
     }
